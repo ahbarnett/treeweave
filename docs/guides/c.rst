@@ -39,6 +39,9 @@ Minimal example
        return 0;
    }
 
+This code is found in the repo at ``examples/C/simple.c``
+
+   
 Evaluation entry points
 -----------------------
 
