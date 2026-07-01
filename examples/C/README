@@ -1,0 +1,4 @@
+
+Example compilation command (when the library built via cmake in `build` alongside the root repo directory):
+
+gcc zeta_bench.c -o zeta_bench -I../../include/ ../../../build/libtreeweave_c.a -lm -lstdc++

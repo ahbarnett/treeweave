@@ -39,7 +39,7 @@ Minimal example
        return 0;
    }
 
-This code is found in the repo at ``examples/C/simple.c``
+This code is a simplified version of ``examples/C/simple.c`` in the repo.
 
    
 Evaluation entry points
