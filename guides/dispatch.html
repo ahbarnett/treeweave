@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Runtime ISA dispatch &mdash; treeweave  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3e294467" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Performance" href="performance.html" />
+    <link rel="prev" title="C ABI reference" href="c-abi.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            treeweave
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#prebuilt-release-binaries">Prebuilt / release binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#use-it-in-your-cmake-project">Use it in your CMake project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#building-from-source">Building from source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python.html#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html#minimal-example">Minimal example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html#evaluation-routes">Evaluation routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html#multi-dimensional-fits">Multi-dimensional fits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html#build-from-source">Build from source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="julia.html">Julia</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="julia.html#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="julia.html#minimal-example">Minimal example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="julia.html#evaluation-routes">Evaluation routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="julia.html#multi-dimensional-fits">Multi-dimensional fits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="julia.html#build-test-against-a-local-library">Build / test against a local library</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="matlab.html">MATLAB / Octave</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="matlab.html#install-matlab-prebuilt-mex">Install (MATLAB) — prebuilt MEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matlab.html#build-from-source-octave-or-matlab-without-the-prebuilt-bundle">Build from source (Octave, or MATLAB without the prebuilt bundle)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matlab.html#minimal-example">Minimal example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matlab.html#evaluation-routes">Evaluation routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matlab.html#multi-dimensional-fits">Multi-dimensional fits</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cpp.html">C++</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cpp.html#d-fit">1-D fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp.html#multi-dimensional-fit">Multi-dimensional fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp.html#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp.html#thread-safety">Thread safety</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp.html#build-the-examples">Build the examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpp.html#compile-without-cmake">Compile without CMake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="c.html">C</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="c.html#minimal-example">Minimal example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c.html#evaluation-entry-points">Evaluation entry points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c.html#building">Building</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fortran.html">Fortran</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fortran.html#minimal-example">Minimal example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fortran.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="options.html">Fit options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="options.html#treeweave-options"><code class="docutils literal notranslate"><span class="pre">treeweave::options</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="options.html#tolkind"><code class="docutils literal notranslate"><span class="pre">TolKind</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="c-abi.html">C ABI reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="c-abi.html#handle-and-callbacks">Handle and callbacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c-abi.html#fit">Fit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c-abi.html#evaluate">Evaluate</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="c-abi.html#by-value-scalar-eval-c-convenience">By-value scalar eval (C convenience)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="c-abi.html#introspection-and-teardown">Introspection and teardown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c-abi.html#multi-arch-dispatch">Multi-arch dispatch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c-abi.html#thread-safety">Thread safety</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Runtime ISA dispatch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-the-family-is-chosen">How the family is chosen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-no-sve-on-arm">Why no SVE on ARM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#forcing-an-isa-for-testing">Forcing an ISA for testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#batch-over-scalar">Batch over scalar</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#the-sorted-fast-path">The sorted fast path</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#the-leaf-table-fast-path">The leaf-table fast path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#memory-and-degree">Memory and degree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#multi-threading">Multi-threading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#cross-language-throughput-and-latency">Cross-language throughput and latency</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#throughput-mevals-s-higher-is-better">Throughput — Mevals/s, higher is better</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#latency-ns-eval-lower-is-better">Latency — ns/eval, lower is better</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#batch-vs-sorted-batch">Batch vs sorted batch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../how-treeweave-works.html">How treeweave works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../how-treeweave-works.html#phase-1-fit-adaptive-paneling">Phase 1 — fit: adaptive paneling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-treeweave-works.html#phase-2-eval-descent">Phase 2 — eval: descent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-treeweave-works.html#phase-3-leaf-evaluation-tensor-product-horner">Phase 3 — leaf evaluation: tensor-product Horner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-treeweave-works.html#phase-4-batched-eval-counting-sort-by-leaf">Phase 4 — batched eval: counting sort by leaf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-treeweave-works.html#what-costs-what">What costs what</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-treeweave-works.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-treeweave-works.html#degree-selection-c-abi-vs-c-header-api">Degree selection: C ABI vs C++ header API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../how-treeweave-works.html#background-and-further-reading">Background and further reading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../how-treeweave-works.html#the-math-briefly">The math, briefly</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../known-issues.html">Known issues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../known-issues.html#matlab-octave-single-point-eval-overhead">MATLAB/Octave single-point eval overhead</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/library_root.html">treeweave API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/library_root.html#full-api">Full API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/library_root.html#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8hpp_1a19caefbd448da9f139ffd2b4474acb9b.html">Template Function treeweave::fit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8hpp_1a9bb0daaf3e51cd75d1efc976cb5f4382.html">Function treeweave::version_at_least</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a813f4168f29dce9bc658d12caa901cad.html">Function treeweave_batch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a97e40316b2b10a4d0a8586d574c9bca8.html">Function treeweave_dtype</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a1dd8b3ffdb48f4e71f9777178d7966c4.html">Function treeweave_eval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a788b57df76c1ffde0aab371be170c9ba.html">Function treeweave_eval_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1ae536acf26d3a49fba52abc0a43a5db04.html">Function treeweave_eval_2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a880504eff15c60717e73f7a0adb779c6.html">Function treeweave_eval_3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a7f1653c91da65b312b4fc79dbc3ab669.html">Function treeweave_fit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a3a8a450fb84bce7141d491bdc721f497.html">Function treeweave_free</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a95b15169a05e04ce66999163e109c141.html">Function treeweave_input_dim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a56e4cab59185eda104f5b7590840ba0b.html">Function treeweave_last_error</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a5dccb13cc6f838eda1f9380fec949649.html">Function treeweave_memory_usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a560b7f8c70a2eb3e73a9bd3c15872fad.html">Function treeweave_output_dim</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a3ffa3fb807c2e09959257a9eb68ab8d7.html">Function treeweave_print_stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a06335223edd24e51dd20b5d38e0b5ebd.html">Function treeweave_sorted</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a70269d9adb4d14c844d432cadf2e23dc.html">Function treeweave_transposed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1ae6ab9211327d2b23d033b40d3fd5763c.html">Function treeweave_version</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1ad774756632d22f71f85e1aed995644fa.html">Function treeweave_version_string</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1ad4dc99ddf455a59575513ddd177d708e.html">Function treeweavef_batch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1afd119db9d9cfa1a7c1c801b4ceeddc87.html">Function treeweavef_eval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a209a7982345f9248ad19c93e7e2b6f1e.html">Function treeweavef_eval_1d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a1e6967002857dc83037a5aa27b6fdd74.html">Function treeweavef_eval_2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a3094b50df96798cc0695dd9891547cb9.html">Function treeweavef_eval_3d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1aad5911412b8ba621b5fd197a30699833.html">Function treeweavef_fit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a4fe6e28cdf97f79437b3f4b82c78c1c7.html">Function treeweavef_sorted</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/function_treeweave_8h_1a6eb917e13d058193f365f4fb235c568a.html">Function treeweavef_transposed</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/library_root.html#directories">Directories</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/dir_include.html">Directory include</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/dir_include_treeweave.html">Directory treeweave</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/dir_include_treeweave_detail.html">Directory detail</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/library_root.html#files">Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/file_include_treeweave_detail_tol_kind.hpp.html">File tol_kind.hpp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/file_include_treeweave.h.html">File treeweave.h</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/file_include_treeweave_treeweave.hpp.html">File treeweave.hpp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">treeweave</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Runtime ISA dispatch</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/DiamonDinoia/treeweave/blob/main/docs/guides/dispatch.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="runtime-isa-dispatch">
+<h1>Runtime ISA dispatch<a class="headerlink" href="#runtime-isa-dispatch" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">libtreeweave_c</span></code> can ship a single binary that picks the widest SIMD
+instruction set the host CPU supports at load time, rather than being pinned to
+the <code class="docutils literal notranslate"><span class="pre">-march</span></code> it was compiled with. This is the <code class="docutils literal notranslate"><span class="pre">TREEWEAVE_C_MULTIARCH</span></code>
+build mode: the eval kernels are compiled once per ISA level, and a tiny
+dispatcher selects one the first time a fit is built.</p>
+<p>Enable it at configure time:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DTREEWEAVE_C_MULTIARCH<span class="o">=</span>ON<span class="w"> </span>-DTREEWEAVE_ARCH<span class="o">=</span>x86-64<span class="w">   </span><span class="c1"># x86</span>
+cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DTREEWEAVE_C_MULTIARCH<span class="o">=</span>ON<span class="w"> </span>-DTREEWEAVE_ARCH<span class="o">=</span>armv8-a<span class="w">  </span><span class="c1"># aarch64</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">TREEWEAVE_ARCH</span></code> is the <strong>baseline</strong> the dispatcher itself and the C shim are
+compiled at, so the library loads on any CPU of the family — keep it at the
+lowest level (<code class="docutils literal notranslate"><span class="pre">x86-64</span></code>, <code class="docutils literal notranslate"><span class="pre">armv8-a</span></code>), not a tuned one.</p>
+<section id="how-the-family-is-chosen">
+<h2>How the family is chosen<a class="headerlink" href="#how-the-family-is-chosen" title="Link to this heading"></a></h2>
+<p>The set of variants is selected at compile time from <code class="docutils literal notranslate"><span class="pre">xsimd::best_arch</span></code> by CPU
+family (see <code class="docutils literal notranslate"><span class="pre">include/treeweave/detail/dispatch_arch.hpp</span></code>):</p>
+<ul>
+<li><p><strong>x86-64</strong> — a four-level ladder. The dispatcher walks it widest-first and
+selects the first level the host reports as available:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">-march</span></code> level</p></th>
+<th class="head"><p>arch</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">TREEWEAVE_FORCE_ARCH</span></code> name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x86-64-v4</span></code></p></td>
+<td><p>AVX-512BW</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">avx512bw</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x86-64-v3</span></code></p></td>
+<td><p>FMA3 + AVX2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fma3+avx2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x86-64-v2</span></code></p></td>
+<td><p>SSE4.2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sse4.2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x86-64</span></code></p></td>
+<td><p>SSE2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sse2</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p><strong>aarch64</strong> (non-Apple) — a single <code class="docutils literal notranslate"><span class="pre">neon64</span></code> variant
+(<code class="docutils literal notranslate"><span class="pre">TREEWEAVE_FORCE_ARCH</span></code> name <code class="docutils literal notranslate"><span class="pre">arm64+neon</span></code>). NEON64 is mandatory on
+ARMv8-A, so it always dispatches. The win here is a uniform, portable dispatch
+path — not a new performance tier.</p></li>
+<li><p><strong>riscv64</strong> — a single <code class="docutils literal notranslate"><span class="pre">rvv</span></code> variant (fixed 128-bit RVV). <strong>Best-effort and
+untested</strong>: there is no RISC-V CI runner, so this branch compiles but is not
+verified.</p></li>
+</ul>
+<p>Apple silicon, MSVC, and unknown targets fall back to a single-arch build at
+<code class="docutils literal notranslate"><span class="pre">TREEWEAVE_ARCH</span></code> (no runtime dispatch).</p>
+</section>
+<section id="why-no-sve-on-arm">
+<h2>Why no SVE on ARM<a class="headerlink" href="#why-no-sve-on-arm" title="Link to this heading"></a></h2>
+<p>ARM SVE is deliberately <strong>excluded</strong> from the runtime ladder. xsimd models SVE
+as <code class="docutils literal notranslate"><span class="pre">sve&lt;N&gt;</span></code> with the vector width <code class="docutils literal notranslate"><span class="pre">N</span></code> baked in at compile time, but the
+runtime probe (<code class="docutils literal notranslate"><span class="pre">available_architectures().has(sve&lt;N&gt;)</span></code>) only checks the SVE
+<em>presence</em> HWCAP bit — it does not check the width. A fixed-width SVE variant
+would therefore falsely match SVE hardware of a <em>different</em> width and mis-run.
+NEON64 is mandatory on every ARMv8-A core, so dropping SVE costs no coverage.</p>
+<p>The dispatch mechanism itself is unchanged across families: <code class="docutils literal notranslate"><span class="pre">xsimd::dispatch</span></code>
+over the family arch-list, with selection driven by
+<code class="docutils literal notranslate"><span class="pre">available_architectures().has(Arch)</span></code> — <em>not</em> <code class="docutils literal notranslate"><span class="pre">Arch::available()</span></code> (which is
+a constexpr <code class="docutils literal notranslate"><span class="pre">true</span></code> and would blindly pick the widest <em>compiled</em> arch on every
+CPU, faulting on hosts that lack it).</p>
+</section>
+<section id="forcing-an-isa-for-testing">
+<h2>Forcing an ISA for testing<a class="headerlink" href="#forcing-an-isa-for-testing" title="Link to this heading"></a></h2>
+<p>Set <code class="docutils literal notranslate"><span class="pre">TREEWEAVE_FORCE_ARCH</span></code> to one of the names above to pin the dispatcher to
+a specific level (capped at what the host actually supports), so one capable
+machine can exercise every fallback path:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">TREEWEAVE_FORCE_ARCH</span><span class="o">=</span>sse2<span class="w">       </span>./test_c_abi<span class="w">   </span><span class="c1"># force the x86 baseline</span>
+<span class="nv">TREEWEAVE_FORCE_ARCH</span><span class="o">=</span>fma3+avx2<span class="w">  </span>./test_c_abi<span class="w">   </span><span class="c1"># force AVX2</span>
+<span class="nv">TREEWEAVE_FORCE_ARCH</span><span class="o">=</span>arm64+neon<span class="w"> </span>./test_c_abi<span class="w">   </span><span class="c1"># force NEON64 on aarch64</span>
+</pre></div>
+</div>
+<p>An unset, unknown, or unsupported value falls through to the normal
+widest-supported selection.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="c-abi.html" class="btn btn-neutral float-left" title="C ABI reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="performance.html" class="btn btn-neutral float-right" title="Performance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025-2026, Marco Barbone and the treeweave authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
