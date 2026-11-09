@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1793627732774,
+  "lastUpdate": 1794234454006,
   "repoUrl": "https://github.com/ahbarnett/treeweave",
   "entries": {
     "treeweave batch eval": [
@@ -1260,6 +1260,76 @@ window.BENCHMARK_DATA = {
             "value": 0.000656928875,
             "unit": "s/batch",
             "extra": "MdAPE=0.00339590740536452; batch=65536 pts/call"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Alex Barnett",
+            "username": "ahbarnett",
+            "email": "abarnett@flatironinstitute.org"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "3053fbff9ca289afc6d1f86ce327d4b644a95418",
+          "message": "Merge branch 'DiamonDinoia:main' into main",
+          "timestamp": "2026-07-02T22:02:13Z",
+          "url": "https://github.com/ahbarnett/treeweave/commit/3053fbff9ca289afc6d1f86ce327d4b644a95418"
+        },
+        "date": 1794234452922,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "eval/1d/runge/f64",
+            "value": 0.000477361111111111,
+            "unit": "s/batch",
+            "extra": "MdAPE=0.00392482907646707; batch=65536 pts/call"
+          },
+          {
+            "name": "eval/1d/runge-deep/f64",
+            "value": 0.0007569961,
+            "unit": "s/batch",
+            "extra": "MdAPE=0.00649199144095658; batch=65536 pts/call"
+          },
+          {
+            "name": "eval/1d/runge-deep/f32",
+            "value": 0.000330657,
+            "unit": "s/batch",
+            "extra": "MdAPE=0.00704796338782728; batch=65536 pts/call"
+          },
+          {
+            "name": "eval/2d/bump/f64",
+            "value": 0.000608802444444444,
+            "unit": "s/batch",
+            "extra": "MdAPE=0.00152901090267943; batch=65536 pts/call"
+          },
+          {
+            "name": "eval/3d/smooth/f64",
+            "value": 0.00116300525,
+            "unit": "s/batch",
+            "extra": "MdAPE=0.00164305753823433; batch=65536 pts/call"
+          },
+          {
+            "name": "eval/2d/bump-deep/f64",
+            "value": 0.00260063122222222,
+            "unit": "s/batch",
+            "extra": "MdAPE=0.0128791795896091; batch=65536 pts/call"
+          },
+          {
+            "name": "eval/3d/smooth-deep/f64",
+            "value": 0.0100808434444444,
+            "unit": "s/batch",
+            "extra": "MdAPE=0.00336685214198534; batch=65536 pts/call"
+          },
+          {
+            "name": "eval/2d->3d/vector/f64",
+            "value": 0.0006434865,
+            "unit": "s/batch",
+            "extra": "MdAPE=0.00374877659322788; batch=65536 pts/call"
           }
         ]
       }
